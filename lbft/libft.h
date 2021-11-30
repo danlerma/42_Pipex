@@ -6,15 +6,15 @@
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 16:39:05 by dlerma-c          #+#    #+#             */
-/*   Updated: 2021/11/23 20:07:38 by dlerma-c         ###   ########.fr       */
+/*   Updated: 2021/11/24 16:53:27 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef LIBFT_H
 
 # define LIBFT_H
 # include <stdlib.h>
+# include <fcntl.h>
 # include <unistd.h>
 
 typedef struct s_list
@@ -60,6 +60,7 @@ int		ft_toupper(int c);
 
 char	**ft_free_malloc(char **str);
 void	ft_print_errors(char *mssg);
+int		ft_open_file(char *file);
 
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_front(t_list **lst, t_list *new);

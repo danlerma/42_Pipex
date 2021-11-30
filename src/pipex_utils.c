@@ -6,7 +6,7 @@
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 15:57:00 by dlerma-c          #+#    #+#             */
-/*   Updated: 2021/11/24 16:10:41 by dlerma-c         ###   ########.fr       */
+/*   Updated: 2021/11/30 19:44:53 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,44 @@ char	**find_path(char **environ)
 		i++;
 	}
 	return (paths);
+}
+
+void	make_process(char **argv, char *aux)
+{
+	int		i;
+	char	*command;
+
+	i = 2;
+	while (argv[i])
+	{
+		command = ft_strjoin(aux, argv[i]);
+		if (access(command, X_OK) == 0)
+			printf("TIENE PERMISO: %s\n", command);
+		i++;
+		free(command);
+	}
+}
+
+void	check_argv(char **paths, char **argv)
+{
+	int		i;
+	char	*aux;
+	char	*temp;
+
+	i = 0;
+	temp = ft_strdup(paths[i]);
+	aux = ft_strjoin(temp, "/");
+	free(temp);
+	while (paths[i])
+	{
+		make_process(argv, aux);
+		i++;
+		free(aux);
+		if (paths[i])
+		{
+			temp = ft_strdup(paths[i]);
+			aux = ft_strjoin(temp, "/");
+			free(temp);
+		}
+	}
 }
