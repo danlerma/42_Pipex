@@ -6,7 +6,7 @@
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 15:57:00 by dlerma-c          #+#    #+#             */
-/*   Updated: 2021/12/04 14:08:02 by dlerma-c         ###   ########.fr       */
+/*   Updated: 2021/12/04 15:20:00 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,30 +33,71 @@ char	**find_path(char **environ)
 	return (paths);
 }
 
-void	check_argv(char **paths, char ***argv, int argc, char **environ)
+static void valid_path(char **paths, t_commands *command)
 {
 	int		i;
 	char	*aux;
-	char	*temp;
 
 	i = 0;
-	if (access(argv[1][0], R_OK) != 0)
-		ft_print_errors("NO READ ACCESS FOR INFILE\n");
-	temp = ft_strdup(paths[i]);
-	aux = ft_strjoin(temp, "/");
-	free(temp);
+	while (paths[i])
+		i++;
+	command->paths = ft_calloc(i + 1, sizeof(char *));
+	i = 0;
+	aux = ft_strdup(paths[i]);
+	command->paths[i] = ft_strjoin(aux, "/");
+	free(aux);
 	while (paths[i])
 	{
-		make_process(argv, aux, argc, environ);
 		i++;
-		free(aux);
 		if (paths[i])
 		{
-			temp = ft_strdup(paths[i]);
-			aux = ft_strjoin(temp, "/");
-			free(temp);
+			aux = ft_strdup(paths[i]);
+			command->paths[i] = ft_strjoin(aux, "/");
+			free(aux);
 		}
 	}
+}
+
+void	check_file(t_commands *command)
+{
+	//Abro el infile
+	command->fd_in = open(command->argv[1][0], O_RDONLY);
+	if (command->fd_in < 0)
+		ft_print_errors("FAIL OPENING FILE\n");
+	dup2(command->fd_in, STDIN_FILENO);
+	close(command->fd_in);
+	////////////////////////
+}
+
+void	check_argv(char **paths, t_commands *command, char **environ)
+{
+	int	i;
+	int	j;
+	char	*com;
+
+	(void) environ;
+	valid_path(paths, command);
+	//Abro el infile
+	check_file(command);
+	i = 2;
+	while (i <= command->num_comds)
+	{
+		j = 0;
+		while (command->paths[j])
+		{
+			com = ft_strjoin(command->paths[j], command->argv[i][0]);
+			if (access(com, X_OK) == 0)
+			{
+				printf("command : %s\n", com);
+			}
+			free(com);
+			j++;
+		}
+		i++;
+	}
+	//SALIDA DEL PROCESO
+
+	/////////////////////
 }
 
 char	***new_agrv(int argc, char **argv)

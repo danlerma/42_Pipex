@@ -6,7 +6,7 @@
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 11:17:33 by dlerma-c          #+#    #+#             */
-/*   Updated: 2021/12/04 14:12:04 by dlerma-c         ###   ########.fr       */
+/*   Updated: 2021/12/04 15:17:09 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,28 +50,21 @@ void	make_process(char ***argv, char *aux, int argc, char **environ)
 {
 	int		i;
 	char	*command;
-	int		fd;
-	pid_t	child;
+	//pid_t	child;
 	i = 2;
-	//Abro el infile
-	fd = open(argv[1][0], O_RDONLY);
-	dup2(fd, STDIN_FILENO);
-	close(fd);
-	////////////////////////
+	(void)environ;
 	while (i < (argc - 2))
 	{
 		command = ft_strjoin(aux, argv[i][0]);
+			printf("command : %s\n", command);
 		if (access(command, X_OK) == 0)
 		{
-			printf("command : %s\n", command);
-			child = make_pipe(argv[i], command, environ);
+			//child = make_pipe(argv[i], command, environ);
 			printf("TODOS LOS HIJOS TERMINADOS\n");	
 		}
 		i++;
 		free(command);
 	}
 	
-	//SALIDA DEL PROCESO
-
-	/////////////////////
+	
 }

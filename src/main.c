@@ -6,7 +6,7 @@
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 21:03:22 by dlerma-c          #+#    #+#             */
-/*   Updated: 2021/12/04 14:08:22 by dlerma-c         ###   ########.fr       */
+/*   Updated: 2021/12/04 14:51:46 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,25 +34,23 @@ int	main(int argc, char **argv)
 {
 	extern char	**environ;
 	char		**paths;
-	char		***n_argv;
+	t_commands	*command;
 
 	atexit(leaks);
 	paths = find_path(environ);
 	if (paths == NULL)
 		return (0);
-	if (argc == 5)
+	command = ft_calloc(1, sizeof(t_commands));
+	command->argc = argc;
+	command->num_comds = argc - 3;
+	if (argc <= 6)
 	{
-		printf("%s\n", paths[0]);
-		printf("%s\n", paths[1]);
-		printf("%s\n", paths[2]);
-		printf("%s\n", paths[3]);
-		printf("%s\n", paths[4]);
-		printf("%s\n", paths[5]);
-		printf("%s\n", paths[6]);
-		n_argv = new_agrv(argc, argv);
-		check_argv(paths, n_argv, argc, environ);
-		ft_free(argc, n_argv);
+		command->argv = new_agrv(argc, argv);
+		check_argv(paths, command, environ);
+		ft_free(argc, command->argv);
+		ft_free_malloc(command->paths);
 		ft_free_malloc(paths);
+		free(command);
 	}
 	else //NO PARA BOONUS
 		ft_print_errors("ARGUMENTOS MAL INTRODUCIDOS\n");
