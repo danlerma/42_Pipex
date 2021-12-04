@@ -6,7 +6,7 @@
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 15:57:00 by dlerma-c          #+#    #+#             */
-/*   Updated: 2021/12/04 15:20:00 by dlerma-c         ###   ########.fr       */
+/*   Updated: 2021/12/04 15:42:47 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,10 @@ void	check_file(t_commands *command)
 
 void	check_argv(char **paths, t_commands *command, char **environ)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	char	*com;
+	int		child;
 
 	(void) environ;
 	valid_path(paths, command);
@@ -88,7 +89,11 @@ void	check_argv(char **paths, t_commands *command, char **environ)
 			com = ft_strjoin(command->paths[j], command->argv[i][0]);
 			if (access(com, X_OK) == 0)
 			{
-				printf("command : %s\n", com);
+				make_pipe(command, com, i, environ);
+				printf("HIJO TERMINADO\n");
+				close(command->fd_pipe[1]);
+				dup2(command->fd_pipe[0], STDIN_FILENO);
+				close(command->fd_pipe[0]);
 			}
 			free(com);
 			j++;
@@ -96,7 +101,20 @@ void	check_argv(char **paths, t_commands *command, char **environ)
 		i++;
 	}
 	//SALIDA DEL PROCESO
-
+	//com = ft_strjoin(command->paths[j], command->argv[i][0]);
+	child = fork();
+	if (child == 0)
+	{
+		command->fd_out = open("salida.txt", O_CREAT | O_RDWR | O_TRUNC, 0777);
+		dup2(command->fd_out , STDOUT_FILENO);
+		close(command->fd_out );
+		execve("/usr/bin/wc", command->argv[i], environ);
+	}
+	else
+	{
+		wait(&child);
+		printf("terminado\n");
+	}
 	/////////////////////
 }
 

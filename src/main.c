@@ -6,7 +6,7 @@
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 21:03:22 by dlerma-c          #+#    #+#             */
-/*   Updated: 2021/12/04 14:51:46 by dlerma-c         ###   ########.fr       */
+/*   Updated: 2021/12/04 15:35:34 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	main(int argc, char **argv)
 		ft_free(argc, command->argv);
 		ft_free_malloc(command->paths);
 		ft_free_malloc(paths);
+		free(command->fd_pipe);
 		free(command);
 	}
 	else //NO PARA BOONUS

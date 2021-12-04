@@ -6,65 +6,33 @@
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 11:17:33 by dlerma-c          #+#    #+#             */
-/*   Updated: 2021/12/04 15:17:09 by dlerma-c         ###   ########.fr       */
+/*   Updated: 2021/12/04 15:37:47 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <pipex.h>
 
- void	child_process()
-{
-	
-}
-
- pid_t	make_pipe(char **argv, char *command, char **environ)
+void	make_pipe(t_commands *command, char *com, int i, char **environ)
 {
 	pid_t	child;
-	int		*fd_pipe;
 	
-	printf("--> %s  %s\n", argv[0], argv[1]);
-	fd_pipe = ft_calloc(2, sizeof(int));
-	if (fd_pipe == NULL)
+	printf("--> %s  %s\n", command->argv[i][0], command->argv[i][1]);
+	command->fd_pipe = (int *)ft_calloc(2, sizeof(int));
+	if (command->fd_pipe == NULL)
 		ft_print_errors("CREATING PIPES\n");
-	pipe(fd_pipe);
+	pipe(command->fd_pipe);
 	child = fork();
-	if (child < 0 || fd_pipe < 0)
+	if (child < 0 || command->fd_pipe < 0)
 		ft_print_errors("FAIL CREATING PROCESS\n");
 	if (child == 0)
 	{
-		close(fd_pipe[0]);
+		close(command->fd_pipe[0]);
 		printf("HIJO -> %d\n", child);
-		dup2(fd_pipe[1], STDOUT_FILENO);
-		close(fd_pipe[1]);
-		execve(command, argv, environ);
+		dup2(command->fd_pipe[1], STDOUT_FILENO);
+		close(command->fd_pipe[1]);
+		execve(com, command->argv[i], environ);
 	}
-	else
-	{
-		//paro el padre hasta que termine el hijo
+	else//paro el padre hasta que termine el hijo
 		wait(&child);
-	}
-	return (0);
 }
 
-void	make_process(char ***argv, char *aux, int argc, char **environ)
-{
-	int		i;
-	char	*command;
-	//pid_t	child;
-	i = 2;
-	(void)environ;
-	while (i < (argc - 2))
-	{
-		command = ft_strjoin(aux, argv[i][0]);
-			printf("command : %s\n", command);
-		if (access(command, X_OK) == 0)
-		{
-			//child = make_pipe(argv[i], command, environ);
-			printf("TODOS LOS HIJOS TERMINADOS\n");	
-		}
-		i++;
-		free(command);
-	}
-	
-	
-}
