@@ -6,7 +6,7 @@
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 21:03:22 by dlerma-c          #+#    #+#             */
-/*   Updated: 2021/12/04 12:55:39 by dlerma-c         ###   ########.fr       */
+/*   Updated: 2021/12/04 14:08:22 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	main(int argc, char **argv)
 		printf("%s\n", paths[5]);
 		printf("%s\n", paths[6]);
 		n_argv = new_agrv(argc, argv);
-		check_argv(paths, n_argv, argc);
+		check_argv(paths, n_argv, argc, environ);
 		ft_free(argc, n_argv);
 		ft_free_malloc(paths);
 	}

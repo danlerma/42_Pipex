@@ -6,7 +6,7 @@
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 15:57:00 by dlerma-c          #+#    #+#             */
-/*   Updated: 2021/12/04 12:57:06 by dlerma-c         ###   ########.fr       */
+/*   Updated: 2021/12/04 14:08:02 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,26 +33,27 @@ char	**find_path(char **environ)
 	return (paths);
 }
 
-void	check_argv(char **paths, char ***argv, int argc)
+void	check_argv(char **paths, char ***argv, int argc, char **environ)
 {
 	int		i;
 	char	*aux;
 	char	*temp;
 
 	i = 0;
+	if (access(argv[1][0], R_OK) != 0)
+		ft_print_errors("NO READ ACCESS FOR INFILE\n");
 	temp = ft_strdup(paths[i]);
 	aux = ft_strjoin(temp, "/");
 	free(temp);
 	while (paths[i])
 	{
-		make_process(argv, aux, argc);
+		make_process(argv, aux, argc, environ);
 		i++;
 		free(aux);
 		if (paths[i])
 		{
 			temp = ft_strdup(paths[i]);
 			aux = ft_strjoin(temp, "/");
-			//printf("AUX: %s\n", aux);
 			free(temp);
 		}
 	}
