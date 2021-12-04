@@ -6,7 +6,7 @@
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 15:57:00 by dlerma-c          #+#    #+#             */
-/*   Updated: 2021/11/30 19:44:53 by dlerma-c         ###   ########.fr       */
+/*   Updated: 2021/12/04 12:39:36 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,6 @@ char	**find_path(char **environ)
 	return (paths);
 }
 
-void	make_process(char **argv, char *aux)
-{
-	int		i;
-	char	*command;
-
-	i = 2;
-	while (argv[i])
-	{
-		command = ft_strjoin(aux, argv[i]);
-		if (access(command, X_OK) == 0)
-			printf("TIENE PERMISO: %s\n", command);
-		i++;
-		free(command);
-	}
-}
-
 void	check_argv(char **paths, char **argv)
 {
 	int		i;
@@ -68,7 +52,29 @@ void	check_argv(char **paths, char **argv)
 		{
 			temp = ft_strdup(paths[i]);
 			aux = ft_strjoin(temp, "/");
+			//printf("AUX: %s\n", aux);
 			free(temp);
 		}
 	}
+}
+
+char	***new_agrv(int argc, char **argv)
+{
+	char	***new;
+	int		i;
+
+	i = 0;
+	new = ft_calloc(argc, sizeof(char **));
+	while (argv[i])
+	{
+		if (ft_strchr(argv[i], ' ') != NULL)
+			new[i] = ft_split(argv[i], ' ');
+		else
+		{
+			new[i] = ft_calloc(2, sizeof(char *));
+			new[i][0] = ft_strdup(argv[i]);
+		}
+		i++;
+	}
+	return (new);
 }

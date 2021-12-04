@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_malloc.c                                   :+:      :+:    :+:   */
+/*   make_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/10 19:33:51 by dlerma-c          #+#    #+#             */
-/*   Updated: 2021/12/04 11:56:13 by dlerma-c         ###   ########.fr       */
+/*   Created: 2021/12/04 11:17:33 by dlerma-c          #+#    #+#             */
+/*   Updated: 2021/12/04 11:18:08 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include <pipex.h>
 
-char	**ft_free_malloc(char **str)
+void	make_process(char **argv, char *aux)
 {
-	int	i;
+	int		i;
+	char	*command;
 
-	i = 0;
-	while (str[i])
+	i = 2;
+	while (argv[i])
 	{
-		free(str[i]);
+		command = ft_strjoin(aux, argv[i]);
+		if (access(command, X_OK) == 0)
+		{
+			printf("command : %s\n", command);
+			//make_pipe(command);
+		}
 		i++;
+		free(command);
 	}
-	free(str);
-	return (NULL);
 }
