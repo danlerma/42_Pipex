@@ -6,7 +6,7 @@
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 11:17:33 by dlerma-c          #+#    #+#             */
-/*   Updated: 2021/12/04 15:37:47 by dlerma-c         ###   ########.fr       */
+/*   Updated: 2021/12/04 15:44:14 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	make_pipe(t_commands *command, char *com, int i, char **environ)
 {
 	pid_t	child;
-	
+
 	printf("--> %s  %s\n", command->argv[i][0], command->argv[i][1]);
 	command->fd_pipe = (int *)ft_calloc(2, sizeof(int));
 	if (command->fd_pipe == NULL)
@@ -32,7 +32,6 @@ void	make_pipe(t_commands *command, char *com, int i, char **environ)
 		close(command->fd_pipe[1]);
 		execve(com, command->argv[i], environ);
 	}
-	else//paro el padre hasta que termine el hijo
+	else
 		wait(&child);
 }
-

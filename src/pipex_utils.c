@@ -6,7 +6,7 @@
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 15:57:00 by dlerma-c          #+#    #+#             */
-/*   Updated: 2021/12/04 15:42:47 by dlerma-c         ###   ########.fr       */
+/*   Updated: 2021/12/04 16:04:16 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void valid_path(char **paths, t_commands *command)
 	}
 }
 
-void	check_file(t_commands *command)
+void	check_infile(t_commands *command)
 {
 	//Abro el infile
 	command->fd_in = open(command->argv[1][0], O_RDONLY);
@@ -69,23 +69,51 @@ void	check_file(t_commands *command)
 	////////////////////////
 }
 
+void	check_outfile(t_commands *command, int i, char *out, char **environ)
+{
+	int	child;
+
+	printf("pppppp->>> %s  %s\n", out, command->argv[i - 1][1]);
+	child = fork();
+	if (child == 0)
+	{
+		command->fd_out = open("salida.txt", O_CREAT | O_RDWR | O_TRUNC, 0777);
+		dup2(command->fd_out , STDOUT_FILENO);
+		close(command->fd_out );
+		execve(out, command->argv[i - 1], environ);
+	}
+	else
+	{
+		wait(&child);
+		free(out);
+		printf("terminado\n");
+	}
+}
+
 void	check_argv(char **paths, t_commands *command, char **environ)
 {
 	int		i;
 	int		j;
 	char	*com;
-	int		child;
+	char	*out;
 
-	(void) environ;
+	com = NULL;
 	valid_path(paths, command);
 	//Abro el infile
-	check_file(command);
+	check_infile(command);
 	i = 2;
-	while (i <= command->num_comds)
+	while (i <= (command->num_comds + 1))
 	{
 		j = 0;
 		while (command->paths[j])
 		{
+			if (i == command->num_comds + 1)
+			{
+				out = ft_strjoin(command->paths[j], command->argv[i][0]);
+				if (access(out, X_OK) == 0)
+					break;
+				free(out);
+			}
 			com = ft_strjoin(command->paths[j], command->argv[i][0]);
 			if (access(com, X_OK) == 0)
 			{
@@ -101,20 +129,9 @@ void	check_argv(char **paths, t_commands *command, char **environ)
 		i++;
 	}
 	//SALIDA DEL PROCESO
+	check_outfile(command, i, out, environ);
 	//com = ft_strjoin(command->paths[j], command->argv[i][0]);
-	child = fork();
-	if (child == 0)
-	{
-		command->fd_out = open("salida.txt", O_CREAT | O_RDWR | O_TRUNC, 0777);
-		dup2(command->fd_out , STDOUT_FILENO);
-		close(command->fd_out );
-		execve("/usr/bin/wc", command->argv[i], environ);
-	}
-	else
-	{
-		wait(&child);
-		printf("terminado\n");
-	}
+	
 	/////////////////////
 }
 
