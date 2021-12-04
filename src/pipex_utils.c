@@ -6,7 +6,7 @@
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 15:57:00 by dlerma-c          #+#    #+#             */
-/*   Updated: 2021/12/04 12:39:36 by dlerma-c         ###   ########.fr       */
+/*   Updated: 2021/12/04 12:57:06 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	**find_path(char **environ)
 	return (paths);
 }
 
-void	check_argv(char **paths, char **argv)
+void	check_argv(char **paths, char ***argv, int argc)
 {
 	int		i;
 	char	*aux;
@@ -45,7 +45,7 @@ void	check_argv(char **paths, char **argv)
 	free(temp);
 	while (paths[i])
 	{
-		make_process(argv, aux);
+		make_process(argv, aux, argc);
 		i++;
 		free(aux);
 		if (paths[i])
