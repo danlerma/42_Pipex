@@ -6,7 +6,7 @@
 #    By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/24 15:52:49 by dlerma-c          #+#    #+#              #
-#    Updated: 2021/12/04 12:50:38 by dlerma-c         ###   ########.fr        #
+#    Updated: 2021/12/04 16:14:46 by dlerma-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ LDLIBS = -lft
 #                                    SRCS                                      #
 #··············································································#
 
-SRCS = main.c pipex_utils.c make_process.c
+SRCS = main.c pipex_utils.c make_process.c check_files.c
 OBJS_NAME = $(SRCS:%.c=%.o)
 OBJS = $(addprefix $(OBJ_PATH)/, $(OBJS_NAME))
 

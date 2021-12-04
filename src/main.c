@@ -6,7 +6,7 @@
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 21:03:22 by dlerma-c          #+#    #+#             */
-/*   Updated: 2021/12/04 15:53:20 by dlerma-c         ###   ########.fr       */
+/*   Updated: 2021/12/04 16:40:16 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	leaks(void)
 	system("leaks -q pipex");
 }
 
-static void	ft_free( int argc, char ***str)
+static void	ft_free( int argc, char ***str, t_commands *command, char **paths)
 {
 	int	i;
 
@@ -28,6 +28,10 @@ static void	ft_free( int argc, char ***str)
 		i++;
 	}
 	free(str);
+	ft_free_malloc(command->paths);
+	free(command->fd_pipe);
+	ft_free_malloc(paths);
+	free(command);
 }
 
 int	main(int argc, char **argv)
@@ -43,17 +47,14 @@ int	main(int argc, char **argv)
 	command = ft_calloc(1, sizeof(t_commands));
 	command->argc = argc;
 	command->num_comds = argc - 3;
-	if (argc <= 6)
+	if (argc >= 5)
 	{
 		command->argv = new_agrv(argc, argv);
-		check_argv(paths, command, environ);
-		ft_free(argc, command->argv);
-		ft_free_malloc(command->paths);
-		ft_free_malloc(paths);
-		free(command->fd_pipe);
-		free(command);
+		valid_path(paths, command);
+		make_process(command, environ);
+		ft_free(argc, command->argv, command, paths);
 	}
-	else //NO PARA BOONUS
+	else
 		ft_print_errors("ARGUMENTOS MAL INTRODUCIDOS\n");
 	return (0);
 }

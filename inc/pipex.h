@@ -6,7 +6,7 @@
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 15:55:28 by dlerma-c          #+#    #+#             */
-/*   Updated: 2021/12/04 15:34:40 by dlerma-c         ###   ########.fr       */
+/*   Updated: 2021/12/04 16:22:01 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,13 @@ typedef struct s_commands
 	int		fd_out;
 }	t_commands;
 
-
 char	**find_path(char **environ);
-void	check_argv(char **paths, t_commands *command, char **environ);
-void	check_permision(char *file, char per);
-void	make_process(char ***argv, char *aux, int argc, char **environ);
+void	valid_path(char **paths, t_commands *command);
 char	***new_agrv(int argc, char **argv);
-void	make_pipe(t_commands *command, char *com, int i, char **environ);
+//make_process.c
+void	make_process(t_commands *command, char **environ);
+//check_files.c
+void	check_infile(t_commands *command);
+void	check_outfile(t_commands *command, int i, char *out, char **environ);
 
 #endif
