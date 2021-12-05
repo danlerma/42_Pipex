@@ -14,13 +14,11 @@
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	size_t		num;
 	size_t		i;
 	char		*str;
 	const char	*s;
 
 	i = -1;
-	num = sizeof(dst);
 	str = dst;
 	s = src;
 	if (dst == NULL && src == NULL)

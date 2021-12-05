@@ -14,6 +14,7 @@
 
 # define PIPEX_H
 # define PATH_ENV "PATH"
+# define HERE_DOC "here_doc"
 
 # include <libft.h>
 # include <stdio.h>
@@ -38,5 +39,6 @@ void	make_process(t_commands *command, char **environ);
 //check_files.c
 void	check_infile(t_commands *command);
 void	check_outfile(t_commands *command, int i, char *out, char **environ);
-
+//heredoc.c
+void	heredoc(t_commands *command);
 #endif

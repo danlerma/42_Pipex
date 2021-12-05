@@ -40,7 +40,7 @@ LDLIBS = -lft
 #                                    SRCS                                      #
 #··············································································#
 
-SRCS = main.c pipex_utils.c make_process.c check_files.c
+SRCS = main.c pipex_utils.c make_process.c check_files.c heredoc.c
 OBJS_NAME = $(SRCS:%.c=%.o)
 OBJS = $(addprefix $(OBJ_PATH)/, $(OBJS_NAME))
 
@@ -49,7 +49,7 @@ OBJS = $(addprefix $(OBJ_PATH)/, $(OBJS_NAME))
 #··············································································#
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -g3
+CFLAGS =  -g3
 #include <xx.h> // path of .h
 CFLAGS += -I $(INC_PATH) -I $(LBFT_PATH)
 

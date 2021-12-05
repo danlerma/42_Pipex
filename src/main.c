@@ -51,7 +51,11 @@ int	main(int argc, char **argv)
 	{
 		command->argv = new_agrv(argc, argv);
 		valid_path(paths, command);
-		make_process(command, environ);
+		//si estamos en heredoc
+		if (ft_strncmp(argv[1], HERE_DOC, sizeof(HERE_DOC)) == 0)
+			heredoc(command);
+		else
+			make_process(command, environ);
 		ft_free(argc, command->argv, command, paths);
 	}
 	else
