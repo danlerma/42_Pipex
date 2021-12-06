@@ -6,13 +6,13 @@
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 11:17:33 by dlerma-c          #+#    #+#             */
-/*   Updated: 2021/12/04 16:37:05 by dlerma-c         ###   ########.fr       */
+/*   Updated: 2021/12/06 13:55:45 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <pipex.h>
 
-static void	make_command(t_commands *command, char *com, int i, char **environ)
+void	make_command(t_commands *command, char *com, int i, char **environ)
 {
 	pid_t	child;
 

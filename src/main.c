@@ -6,7 +6,7 @@
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 21:03:22 by dlerma-c          #+#    #+#             */
-/*   Updated: 2021/12/04 16:40:16 by dlerma-c         ###   ########.fr       */
+/*   Updated: 2021/12/06 13:47:03 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	main(int argc, char **argv)
 		valid_path(paths, command);
 		//si estamos en heredoc
 		if (ft_strncmp(argv[1], HERE_DOC, sizeof(HERE_DOC)) == 0)
-			heredoc(command);
+			heredoc(command, environ);
 		else
 			make_process(command, environ);
 		ft_free(argc, command->argv, command, paths);
