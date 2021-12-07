@@ -6,7 +6,7 @@
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 16:39:05 by dlerma-c          #+#    #+#             */
-/*   Updated: 2021/12/04 11:53:54 by dlerma-c         ###   ########.fr       */
+/*   Updated: 2021/12/06 14:15:36 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,10 @@ t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstdelone(t_list *lst, void (*del)(void*));
+//get_next_line
+char	*get_next_line(int fd);
+char	*ft_strjoin_gnl(char const *s1, char const *s2);
+size_t	ft_cleanlen_gnl(const char *c, int num, void *s, size_t n);
+char	*ft_strdup_gnl(const char *s1);
+char	*ft_substr_gnl(char const *s, unsigned int start, size_t len);
 #endif

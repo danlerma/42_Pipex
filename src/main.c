@@ -6,7 +6,7 @@
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 21:03:22 by dlerma-c          #+#    #+#             */
-/*   Updated: 2021/12/06 13:47:03 by dlerma-c         ###   ########.fr       */
+/*   Updated: 2021/12/07 13:51:29 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	leaks(void)
 {
-	system("leaks -q pipex");
+	system("leaks -q pipex > lll");
 }
 
 static void	ft_free( int argc, char ***str, t_commands *command, char **paths)
@@ -47,7 +47,7 @@ int	main(int argc, char **argv)
 	command = ft_calloc(1, sizeof(t_commands));
 	command->argc = argc;
 	command->num_comds = argc - 3;
-	if (argc >= 5)
+	if (argc >= 3)
 	{
 		command->argv = new_agrv(argc, argv);
 		valid_path(paths, command);
