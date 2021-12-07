@@ -6,7 +6,7 @@
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 11:23:09 by dlerma-c          #+#    #+#             */
-/*   Updated: 2021/12/07 18:04:41 by dlerma-c         ###   ########.fr       */
+/*   Updated: 2021/12/07 20:57:51 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	make_heredoc(t_commands *command, char *com, int i, char **environ)
 	if (child == 0)
     {
 		printf("HIJO: %d\n", getpid());
-        close(command->fd_pipe[0]);
         while (1)
         {
             line = get_next_line(STDIN_FILENO);
@@ -35,9 +34,9 @@ void	make_heredoc(t_commands *command, char *com, int i, char **environ)
 			    //printf("ESTA ES LA LINEA LIMITADORA LINE ----> %s", line);
                 close(command->fd_pipe[1]);
 			    free(line);
-			    break ;
+			    exit(0);
 		    }
-			printf("Llegueß\n");
+         close(command->fd_pipe[0]);
             write(command->fd_pipe[1], line, ft_strlen(line));
 		    free(line);
         }
@@ -74,15 +73,10 @@ void	heredoc(t_commands *command, char **environ)
 			com = ft_strjoin(command->paths[j], command->argv[pos][0]);
 			if (access(com, X_OK) == 0 && i == (command->num_comds))
 				break ;	
-			// if (access(com, X_OK) == 0 && i == 1)
-			// {
-			// 	printf("ACCES %s  %d\n", com, i);
-			// 	make_heredoc(command, com, pos, environ);
-			// 	printf("Despues de heredoc\n");
-			// }
 			else if (access(com, X_OK) == 0)
 			{
 				printf("MAKE COMMAND\n");
+				printf("ACCES %s  %d\n", com, i);
 				make_command(command, com, pos, environ);
 			}
 			free(com);
@@ -91,5 +85,4 @@ void	heredoc(t_commands *command, char **environ)
 		pos++;
 		i++;
 	}
-	check_outfile(command, pos, com, environ);
 }
