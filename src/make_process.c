@@ -6,7 +6,7 @@
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 11:17:33 by dlerma-c          #+#    #+#             */
-/*   Updated: 2021/12/07 13:45:49 by dlerma-c         ###   ########.fr       */
+/*   Updated: 2021/12/07 22:29:46 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	make_command(t_commands *command, char *com, int i, char **environ)
 	}
 	else
 	{
-		wait(&child);
+		//wait(&child);
 		close(command->fd_pipe[1]);
 		dup2(command->fd_pipe[0], STDIN_FILENO);
 		close(command->fd_pipe[0]);

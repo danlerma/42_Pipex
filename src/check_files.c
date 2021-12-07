@@ -6,7 +6,7 @@
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 16:13:37 by dlerma-c          #+#    #+#             */
-/*   Updated: 2021/12/07 14:35:34 by dlerma-c         ###   ########.fr       */
+/*   Updated: 2021/12/07 22:16:01 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,12 @@ void	check_heardoc(t_commands *command)
 
 void	check_infile(t_commands *command)
 {
+	printf("INFILE: %s\n", command->argv[1][0]);
 	command->fd_in = open(command->argv[1][0], O_RDONLY);
 	if (command->fd_in < 0)
 		ft_print_errors("FAIL OPENING FILE\n");
 	dup2(command->fd_in, STDIN_FILENO);
+	write(command->fd_out, "\0", 1);
 	close(command->fd_in);
 }
 
@@ -37,7 +39,7 @@ void	check_outfile(t_commands *command, int i, char *out, char **environ)
 	child = fork();
 	if (child == 0)
 	{
-		printf("SALIDA HIJO -> %d\n", getpid());
+		printf("SALIDA HIJO -> %d\t%s %s\n", getpid(), command->argv[i - 1][0], command->argv[i - 1][1]);
 		command->fd_out = open(command->argv[command->argc - 1][0],
 				O_CREAT | O_RDWR | O_TRUNC, 0777);
 		dup2(command->fd_out, STDOUT_FILENO);
@@ -47,7 +49,8 @@ void	check_outfile(t_commands *command, int i, char *out, char **environ)
 	else
 	{
 		wait(&child);
+		close(3);
+		close(4);
 		free(out);
-		printf("terminado\n");
 	}
 }

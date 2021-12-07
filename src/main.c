@@ -6,7 +6,7 @@
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 21:03:22 by dlerma-c          #+#    #+#             */
-/*   Updated: 2021/12/07 13:51:29 by dlerma-c         ###   ########.fr       */
+/*   Updated: 2021/12/07 22:55:05 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	main(int argc, char **argv)
 	char		**paths;
 	t_commands	*command;
 
-	atexit(leaks);
+	//atexit(leaks);
 	paths = find_path(environ);
 	if (paths == NULL)
 		return (0);
@@ -62,3 +62,4 @@ int	main(int argc, char **argv)
 		ft_print_errors("ARGUMENTOS MAL INTRODUCIDOS\n");
 	return (0);
 }
+

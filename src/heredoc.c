@@ -6,7 +6,7 @@
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 11:23:09 by dlerma-c          #+#    #+#             */
-/*   Updated: 2021/12/07 20:57:51 by dlerma-c         ###   ########.fr       */
+/*   Updated: 2021/12/07 22:31:42 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,10 @@ void	make_heredoc(t_commands *command, char *com, int i, char **environ)
 			    //printf("ESTA ES LA LINEA LIMITADORA LINE ----> %s", line);
                 close(command->fd_pipe[1]);
 			    free(line);
+				printf("estoy muerto\n");
 			    exit(0);
 		    }
-         close(command->fd_pipe[0]);
+        	close(command->fd_pipe[0]);
             write(command->fd_pipe[1], line, ft_strlen(line));
 		    free(line);
         }
@@ -46,10 +47,39 @@ void	make_heredoc(t_commands *command, char *com, int i, char **environ)
 		close(command->fd_pipe[1]);
 		dup2(command->fd_pipe[0], STDIN_FILENO);
 		close(command->fd_pipe[0]);
-        wait(&child);
+       	wait(&child);
 	}
 	printf("TERMINË\n");
 }
+
+// void	delete_file(t_commands *command, char **environ)
+// {
+// 	int	child;
+// 	char	**comnd;
+
+// 	comnd = ft_calloc(2, sizeof(char *));
+// 	if (comnd == NULL)
+// 		ft_print_errors("FAIL CREATING MALLOC\n");
+// 	comnd[0] = (char *)ft_calloc(2, sizeof(char));
+// 	comnd[0] = "rm";
+// 	comnd[1] = (char *)ft_calloc(3, sizeof(char));
+// 	comnd[1] = "-rf";
+// 	child = fork();
+// 	if (child == 0)
+// 	{
+// 		printf("SALIDA HIJO -> %d\t%s %s\n", getpid(), comnd[0], comnd[1]);
+// 		command->fd_in = open(command->argv[1][0], O_RDWR);
+// 		dup2(command->fd_in, STDIN_FILENO);
+// 		//close(command->fd_in);
+// 		execve("/bin/rm", comnd, environ);
+// 	}
+// 	else
+// 	{
+// 		wait(&child);
+// 		free(comnd);
+// 		printf("terminado\n");
+// 	}
+// }
 
 void	heredoc(t_commands *command, char **environ)
 {
@@ -75,7 +105,6 @@ void	heredoc(t_commands *command, char **environ)
 				break ;	
 			else if (access(com, X_OK) == 0)
 			{
-				printf("MAKE COMMAND\n");
 				printf("ACCES %s  %d\n", com, i);
 				make_command(command, com, pos, environ);
 			}
@@ -85,4 +114,6 @@ void	heredoc(t_commands *command, char **environ)
 		pos++;
 		i++;
 	}
+	check_outfile(command, pos, com, environ);
+	//delete_file(command, environ);
 }
