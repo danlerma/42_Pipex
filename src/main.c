@@ -6,7 +6,7 @@
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 21:03:22 by dlerma-c          #+#    #+#             */
-/*   Updated: 2021/12/08 14:57:54 by dlerma-c         ###   ########.fr       */
+/*   Updated: 2021/12/08 16:29:08 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	main(int argc, char **argv)
 	command = ft_calloc(1, sizeof(t_commands));
 	command->argc = argc;
 	command->num_comds = argc - 3;
-	if (argc >= 3)
+	if (argc >= 5)
 	{
 		command->argv = new_agrv(argc, argv);
 		valid_path(paths, command);

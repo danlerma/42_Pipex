@@ -6,7 +6,7 @@
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 16:13:37 by dlerma-c          #+#    #+#             */
-/*   Updated: 2021/12/08 15:06:05 by dlerma-c         ###   ########.fr       */
+/*   Updated: 2021/12/08 16:28:55 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ void	check_outfile(t_commands *command, int i, char *out, char **environ)
 	else
 	{
 		wait(&child);
-		close(3);
-		close(4);
 		free(out);
 	}
 }
