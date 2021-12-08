@@ -6,7 +6,7 @@
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 11:17:33 by dlerma-c          #+#    #+#             */
-/*   Updated: 2021/12/07 22:29:46 by dlerma-c         ###   ########.fr       */
+/*   Updated: 2021/12/08 15:02:04 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	make_command(t_commands *command, char *com, int i, char **environ)
 	}
 	else
 	{
-		//wait(&child);
 		close(command->fd_pipe[1]);
 		dup2(command->fd_pipe[0], STDIN_FILENO);
 		close(command->fd_pipe[0]);
@@ -56,7 +55,7 @@ void	make_process(t_commands *command, char **environ)
 		{
 			com = ft_strjoin(command->paths[j], command->argv[i][0]);
 			if (access(com, X_OK) == 0 && i == (command->num_comds + 1))
-				break ;		
+				break ;
 			if (access(com, X_OK) == 0)
 				make_command(command, com, i, environ);
 			free(com);

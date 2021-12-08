@@ -6,16 +6,11 @@
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 21:03:22 by dlerma-c          #+#    #+#             */
-/*   Updated: 2021/12/07 22:55:05 by dlerma-c         ###   ########.fr       */
+/*   Updated: 2021/12/08 14:57:54 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <pipex.h>
-
-void	leaks(void)
-{
-	system("leaks -q pipex > lll");
-}
 
 static void	ft_free( int argc, char ***str, t_commands *command, char **paths)
 {
@@ -40,7 +35,6 @@ int	main(int argc, char **argv)
 	char		**paths;
 	t_commands	*command;
 
-	//atexit(leaks);
 	paths = find_path(environ);
 	if (paths == NULL)
 		return (0);
@@ -51,7 +45,6 @@ int	main(int argc, char **argv)
 	{
 		command->argv = new_agrv(argc, argv);
 		valid_path(paths, command);
-		//si estamos en heredoc
 		if (ft_strncmp(argv[1], HERE_DOC, sizeof(HERE_DOC)) == 0)
 			heredoc(command, environ);
 		else
@@ -62,4 +55,3 @@ int	main(int argc, char **argv)
 		ft_print_errors("ARGUMENTOS MAL INTRODUCIDOS\n");
 	return (0);
 }
-
