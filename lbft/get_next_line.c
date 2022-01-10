@@ -6,7 +6,7 @@
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 14:09:52 by dlerma-c          #+#    #+#             */
-/*   Updated: 2021/11/04 18:26:54 by dlerma-c         ###   ########.fr       */
+/*   Updated: 2022/01/10 19:00:56 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ char	*get_next_line(int fd)
 	if (buff == NULL)
 		return (NULL);
 	ft_cleanlen_gnl("\0", 1, buff, BUFFER_SIZE + 1);
-	if (read(fd, buff, 0) == -1 || BUFFER_SIZE < 1 || fd < 0 )
+	if (read(fd, buff, 0) == -1 || BUFFER_SIZE < 1 || fd < 0)
 	{
 		free(buff);
 		return (NULL);

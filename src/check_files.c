@@ -6,20 +6,20 @@
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 16:13:37 by dlerma-c          #+#    #+#             */
-/*   Updated: 2021/12/08 16:28:55 by dlerma-c         ###   ########.fr       */
+/*   Updated: 2022/01/10 19:02:04 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <pipex.h>
 
-void	check_heardoc(t_commands *command, int pos, char **environ)
+void	check_heardoc(t_commands *command)
 {
 	if (command->fd_pipe)
 		free(command->fd_pipe);
 	command->fd_pipe = (int *)ft_calloc(2, sizeof(int));
 	if (command->fd_pipe == NULL)
 		ft_print_errors("CREATING PIPES\n");
-	make_heredoc(command, pos, environ);
+	make_heredoc(command);
 	command->num_comds--;
 }
 

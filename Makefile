@@ -6,7 +6,7 @@
 #    By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/24 15:52:49 by dlerma-c          #+#    #+#              #
-#    Updated: 2021/12/04 16:14:46 by dlerma-c         ###   ########.fr        #
+#    Updated: 2022/01/10 18:53:36 by dlerma-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ OBJS = $(addprefix $(OBJ_PATH)/, $(OBJS_NAME))
 #··············································································#
 
 CC = gcc
-CFLAGS =  -g3
+CFLAGS = -Wall -Werror -Wextra -g3
 #include <xx.h> // path of .h
 CFLAGS += -I $(INC_PATH) -I $(LBFT_PATH)
 

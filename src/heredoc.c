@@ -6,7 +6,7 @@
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 11:23:09 by dlerma-c          #+#    #+#             */
-/*   Updated: 2021/12/08 15:01:31 by dlerma-c         ###   ########.fr       */
+/*   Updated: 2022/01/10 19:02:31 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	limit(t_commands *command, int len, char *line)
 {
 	if (ft_strncmp(line, command->argv[2][0], len) == 0
-		&& (ft_strlen(line) - 1) == len)
+		&& ((int)ft_strlen(line) - 1) == len)
 	{
 		close(command->fd_pipe[1]);
 		free(line);
@@ -25,7 +25,7 @@ static void	limit(t_commands *command, int len, char *line)
 	write(command->fd_pipe[1], line, ft_strlen(line));
 }
 
-void	make_heredoc(t_commands *command, int i, char **environ)
+void	make_heredoc(t_commands *command)
 {
 	pid_t	child;
 	char	*line;
@@ -61,9 +61,9 @@ void	heredoc(t_commands *command, char **environ)
 	int		j;
 	char	*com;
 
-	check_heardoc(command, pos, environ);
 	i = 1;
 	pos = 3;
+	check_heardoc(command);
 	while (i <= command->num_comds)
 	{
 		j = 0;
