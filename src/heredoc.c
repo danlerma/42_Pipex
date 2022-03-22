@@ -6,7 +6,7 @@
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 11:23:09 by dlerma-c          #+#    #+#             */
-/*   Updated: 2022/01/10 19:02:31 by dlerma-c         ###   ########.fr       */
+/*   Updated: 2022/03/22 08:13:41 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	make_heredoc(t_commands *command)
 
 	pipe(command->fd_pipe);
 	child = fork();
-	if (child < 0 || command->fd_pipe < 0)
+	if (child < 0 || command->fd_pipe[0] < 0)
 		ft_print_errors("FAIL CREATING PROCESS\n");
 	len = ft_strlen(command->argv[2][0]);
 	if (child == 0)

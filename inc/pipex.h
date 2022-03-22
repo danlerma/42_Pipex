@@ -6,7 +6,7 @@
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 15:55:28 by dlerma-c          #+#    #+#             */
-/*   Updated: 2022/01/10 19:02:10 by dlerma-c         ###   ########.fr       */
+/*   Updated: 2022/03/22 08:14:09 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <libft.h>
 # include <stdio.h>
 # include <unistd.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
 typedef struct s_commands
 {

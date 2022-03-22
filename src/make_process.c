@@ -6,7 +6,7 @@
 /*   By: dlerma-c <dlerma-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 11:17:33 by dlerma-c          #+#    #+#             */
-/*   Updated: 2021/12/08 15:02:04 by dlerma-c         ###   ########.fr       */
+/*   Updated: 2022/03/22 08:13:34 by dlerma-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	make_command(t_commands *command, char *com, int i, char **environ)
 		ft_print_errors("CREATING PIPES\n");
 	pipe(command->fd_pipe);
 	child = fork();
-	if (child < 0 || command->fd_pipe < 0)
+	if (child < 0 || command->fd_pipe[0] < 0)
 		ft_print_errors("FAIL CREATING PROCESS\n");
 	if (child == 0)
 	{
